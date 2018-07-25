@@ -28,7 +28,9 @@ if (isset($_FILES['upload_file']))
         $source = \Tinify\fromFile("tmp/" . $_FILES['upload_file']['name']);
         $source->toFile("tmp/tiny_" . $_FILES['upload_file']['name']);
         $original_filename = $_FILES['upload_file']['name'];
-        $filename = "tiny_" . $_FILES['upload_file']['name'];
+        $ext = pathinfo($_FILES['upload_file']['name'], PATHINFO_EXTENSION); // To get extension
+        $base_filename =pathinfo($_FILES['upload_file']['name'], PATHINFO_FILENAME); // File name without extension
+        $filename = $base_filename . "_tiny." . $ext;
         $filepath = "tmp/tiny_" . $_FILES['upload_file']['name'];
         $status = 200;
         $message = "Image optimized!";

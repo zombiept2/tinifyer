@@ -242,8 +242,8 @@
                         // Every thing ok, file uploaded
                         if (xhr.responseText) {
                             var obj = JSON.parse(xhr.responseText);
-                            //var url = 'download.php?file=' + obj.filepath + '&output=' + obj.filename;
-                            var url = 'download.php?file=' + obj.filepath + '&output=' + obj.original_filename;
+                            var url = 'download.php?file=' + obj.filepath + '&output=' + obj.filename;
+                            //var url = 'download.php?file=' + obj.filepath + '&output=' + obj.original_filename;
                             //OpenWindow(url);
                             //Redirect(url);
                             $('#img_tinified').attr('src', obj.filepath);
