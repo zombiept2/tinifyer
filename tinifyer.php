@@ -29,7 +29,7 @@ if (isset($_FILES['upload_file']))
         $source->toFile("tmp/tiny_" . $_FILES['upload_file']['name']);
         $original_filename = $_FILES['upload_file']['name'];
         $ext = pathinfo($_FILES['upload_file']['name'], PATHINFO_EXTENSION); // To get extension
-        $base_filename =pathinfo($_FILES['upload_file']['name'], PATHINFO_FILENAME); // File name without extension
+        $base_filename = pathinfo($_FILES['upload_file']['name'], PATHINFO_FILENAME); // File name without extension
         $filename = $base_filename . "_tiny." . $ext;
         $filepath = "tmp/tiny_" . $_FILES['upload_file']['name'];
         $status = 200;
@@ -80,16 +80,27 @@ function _requestStatus($code)
     ); 
     return ($status[$code])?$status[$code]:$status[500]; 
 }
-function remove_files_from_dir_older_than_x_seconds($dir,$seconds = 3600) {
+function remove_files_from_dir_older_than_x_seconds($dir,$seconds = 3600) 
+{
     $files = glob(rtrim($dir, '/')."/*");
     $now   = time();
-    foreach ($files as $file) {
-        if (is_file($file)) {
-            if ($now - filemtime($file) >= $seconds) {
-                //echo "removed $file<br>".PHP_EOL;
-                unlink($file);
+    foreach ($files as $file) 
+    {
+        if (is_file($file)) 
+        {
+            if ($now - filemtime($file) >= $seconds) 
+            {
+                $ext = pathinfo($file, PATHINFO_EXTENSION); // To get extension
+                $base_filename = pathinfo($file, PATHINFO_FILENAME); // File name without extension
+                $filename = $base_filename . '.' . $ext;
+                if ($filename != 'index.php')
+                {
+                    unlink($file);
+                }
             }
-        } else {
+        } 
+        else 
+        {
             remove_files_from_dir_older_than_x_seconds($file,$seconds);
         }
     }
